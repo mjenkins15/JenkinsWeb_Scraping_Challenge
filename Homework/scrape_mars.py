@@ -1,14 +1,12 @@
 import time
-from splinter import Browser
+from splinter import browser
 from bs4 import BeautifulSoup as bs
 import pandas as pd
 import numpy as np
 from selenium import webdriver
 import requests as req
-import re
 
-from splinter import browser
-from selenium import webdriver
+
 
 def scrape():
 
@@ -69,41 +67,41 @@ def scrape():
 #]
 
 #Base url
-base_url = "https://astrogeology.usgs.gov"
-hemisphere_image_urls = []
-for i in hemisphere_img_class:
-    img_title = i.find('h3').text
-    partial_img_url = i.find('a')['href']
+    base_url = "https://astrogeology.usgs.gov"
+    hemisphere_image_urls = []
+    for i in hemisphere_img_class:
+        img_title = i.find('h3').text
+        partial_img_url = i.find('a')['href']
 
-    # Visit link that contains full-sized image
-    browser.visit(base_url+partial_img_url)
+        # Visit link that contains full-sized image
+        browser.visit(base_url+partial_img_url)
 
-    # Store html from page visited
-    img_html = browser.html
-    
-    # Create BeautifulSoup object; parse with 'html.parser'
-    img_soup = bs(img_html, 'html.parser')
-    
-    # Retrieve image url
-    individual_img_partial_url = img_soup.find('img', class_='wide-image')['src']
-    
-    # Attach partial link to main url
-    individual_img_url = base_url + individual_img_partial_url
+        # Store html from page visited
+        img_html = browser.html
+        
+        # Create BeautifulSoup object; parse with 'html.parser'
+        img_soup = bs(img_html, 'html.parser')
+        
+        # Retrieve image url
+        individual_img_partial_url = img_soup.find('img', class_='wide-image')['src']
+        
+        # Attach partial link to main url
+        individual_img_url = base_url + individual_img_partial_url
 
-    # Append information into a list of dictionaries 
-    hemisphere_image_urls.append({"title" : img_title, "img_url" : individual_img_url})
-    
-hemisphere_image_urls
+        # Append information into a list of dictionaries 
+        hemisphere_image_urls.append({"title" : img_title, "img_url" : individual_img_url})
+        
+    hemisphere_image_urls
 
-#creating a python dictionary of all scraped data
-mars_data = {
-    "articles": title, 
-    "paragraph": paragraph,
-    "new_jpl_image": featured_image_url,
-    "mars_weather": mars_weather,
-    "mars_facts": mars_facts,
-    "hemisphere_image_urls": hemisphere_image_urls
-}
+    #creating a python dictionary of all scraped data
+    mars_data = {
+        "articles": title, 
+        "paragraph": paragraph,
+        "new_jpl_image": featured_image_url,
+        "mars_weather": mars_weather,
+        "mars_facts": mars_facts,
+        "hemisphere_image_urls": hemisphere_image_urls
+    }
 
-return mars_data
+    return mars_data
 
