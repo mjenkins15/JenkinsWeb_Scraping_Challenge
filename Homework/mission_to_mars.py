@@ -1,10 +1,11 @@
-s# To add a new cell, type '# %%'
+# To add a new cell, type '# %%'
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
 import pandas as pd 
 from bs4 import BeautifulSoup as bs 
 from splinter import Browser
 import requests
+import time
 #import os
 #from selenium import webdriver
 #from selenium.webdriver.common.keys import Keys
@@ -20,7 +21,7 @@ browser = Browser('chrome', **executable_path, headless=False)
 
 url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
 browser.visit(url)
-
+time.sleep(5)
 
 # %%
 html = browser.html
@@ -53,8 +54,8 @@ articles = soup.find_all("li", class_="slide")
 first_article = articles[0]
 first_title = first_article.find("div", class_="content_title").find("a").text
 first_para = first_article.find("div", class_="article_teaser_body").text
-print(first_title)
-print(first_para)
+#print(first_title)
+#print(first_para)
 
 
 # %%
@@ -65,7 +66,7 @@ print(first_para)
 #JPL Mars Space Images - Featured Image
 
 featured_image_url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
-browser.visit(image_url)
+browser.visit(featured_image_url)
 html = browser.html
 #Create a Beautiful Soup Object
 soup = bs(html, "html.parser")
@@ -82,7 +83,7 @@ new_jpl_image
 
 
 # %%
-new_jpl_image["data-fancybox-href"]
+print(new_jpl_image["data-fancybox-href"])
 
 
 # %%
@@ -100,8 +101,8 @@ soup = bs(html, "html.parser")
 
 
 # %%
-#weather_tweet = soup.find_all("article")
-#weather_tweet
+weather_tweet = soup.find_all("article")
+weather_tweet
 
 
 # %%
