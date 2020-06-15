@@ -40,8 +40,8 @@ def scrape():
     jpl_image=soup.find_all("article")
     jpl_image
 
-    new_jpl_image= jpl_image[0].find_all("article", class_= "carousel_item")
-    new_jpl_image= ("data=fancybox-href")
+    #new_jpl_image= jpl_image[0].find_all("article", class_= "carousel_item")
+    #new_jpl_image= ("data=fancybox-href")
     #jpl_image = soup.find_all("article", class_= "carousel_item")
     #jpl_image= jpl_image[0]["data-fancybox-href"]
 
@@ -55,7 +55,7 @@ def scrape():
     weather_tweet
 
     mars_weather= weather_tweet[4].find_all("span", class_="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0")
-    mars_weather[4].text
+    mars_weather = mars_weather[4].text
 
     #Mars Facts
     mars_facts_url = "https://space-facts.com/mars/"
@@ -68,9 +68,9 @@ def scrape():
 
     # %%
     df = table[0]
-    #df. columns = [0,1]
+    df.rename(columns = {0:"Column1", 1:"Column2"}, inplace=True)
     html_table = df.to_html()
-    html_table.replace("\n", "") 
+    html_table = html_table.replace("\n", "") 
 
     #Mars Hemispheres (high resolution images of Mars' hemispheres)
     mars_hemispheres_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
@@ -118,11 +118,11 @@ def scrape():
     #creating a python dictionary of all scraped data
     mars_data = {
 
-    "articles" : articles, 
+    #"articles" : articles, 
     "paragraph": first_para,
-    "new_jpl_image" : featured_image_url,
+    "new_jpl_image" : jpl_image,
     "mars_weather" : mars_weather,
-    "mars_facts" : mars_facts,
+    "mars_facts" : html_table,
     "hemisphere_image_urls" : hemisphere_image_urls
 
 

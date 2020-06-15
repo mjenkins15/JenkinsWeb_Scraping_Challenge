@@ -29,6 +29,7 @@ def scraper():
 
     #mars_data = scrape_mars.scrape()
     mars_data = scrape()
+    print(mars_data) 
 
     #Update the Mongo database and upsert_True
     mars_dict.update({}, mars_data, upsert = True)

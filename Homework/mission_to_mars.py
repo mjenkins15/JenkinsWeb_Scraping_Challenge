@@ -54,8 +54,8 @@ articles = soup.find_all("li", class_="slide")
 first_article = articles[0]
 first_title = first_article.find("div", class_="content_title").find("a").text
 first_para = first_article.find("div", class_="article_teaser_body").text
-#print(first_title)
-#print(first_para)
+print(first_title)
+print(first_para)
 
 
 # %%
